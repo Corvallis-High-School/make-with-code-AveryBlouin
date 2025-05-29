@@ -5,4 +5,6 @@ return {
     "-" = "DECREASE",
     "[" = "START",
     "]" = "END",
+    "," = "GETCHAR",
+    "." = "PUTCHAR",
 }
