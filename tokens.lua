@@ -1,8 +1,8 @@
 return {
-    ">" = "RIGHT",
-    "<" = "LEFT",
-    "+" = "INCREASE",
-    "-" = "DECREASE",
-    "[" = "START",
-    "]" = "END",
+	[">"] = "RIGHT",
+	["<"] = "LEFT",
+	["+"] = "INCREASE",
+	["-"] = "DECREASE",
+	["["] = "START",
+	["]"] = "END",
 }
