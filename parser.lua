@@ -11,11 +11,6 @@ function parser:eat()
     return token
 end
 
-function parser:next()
-    self.index = self.index + 1
-    return self:get()
-end
-
 function parser:delimit(finish,callback)
     local tokens = {}
 
