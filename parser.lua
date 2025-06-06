@@ -1,3 +1,5 @@
+local TokenList = require("tokens")
+
 local parser = {}
 parser.__index = parser
 
@@ -42,6 +44,8 @@ function parser:parseOperation()
         error("Unexpected end of loop.")
     elseif token == "<EOF>" then
         error("Unexpected end of file.")
+    else
+        token = {type = TokenList[token]}
     end
 
     return token
