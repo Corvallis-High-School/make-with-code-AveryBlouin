@@ -11,7 +11,7 @@ function console:readchar()
     if char then return char end
 
     local read = io.read("*l")
-    if read == "" then read = "\0" end
+    if read == "" or read == nil then read = "\0" end
 
     self.text = self.text.. read
 
@@ -30,11 +30,16 @@ function console:display(txt)
     io.write(txt)
 end
 
-function console.new()
+function console.new(input)
+    input = input or ""
     local self = {}
 
-    self.text = "Console mode simulator\nReturn must be pressed after typing a character (can't do anything about that),\nleaving empty will result in a null character.\nInputting extra characters will add them to a buffer.\n\n"
+    self.text = "Console mode simulator\nReturn must be pressed after typing a character (can't do anything about that),\nleaving empty will result in a null character.\nInputting extra characters will add them to a buffer.\n\n".. input
     self.buffer = {}
+
+    for c in string.gmatch(input,".") do
+        table.insert(self.buffer,c)
+    end
 
     cls()
     io.write(self.text)

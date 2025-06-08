@@ -10,8 +10,7 @@ local interpreters = {
         end
     end,
     LOOP = function(self,node)
-        local pos = self.position
-        while self.membuff[pos] > 0 do
+        while self.membuff[self.position] > 0 do
             self:interpretNode(node.body)
         end
     end,
@@ -47,13 +46,18 @@ function interpreter:run()
     self.position = 1
     self.membuff = setmetatable({},{__index = function() return 0 end})
 
+    self.ast = self.parser.ast
+    if #self.parser.userinput > 0 then
+        self.parser.userinput = self.parser.userinput.."\0"
+    end
+    self.consolesim = ConsolesimClass.new(self.parser.userinput)
+
     return self:interpretNode(self.ast)
 end
 
-function interpreter.new(ast)
+function interpreter.new(parser)
     local self = {}
-    self.ast = ast
-    self.consolesim = ConsolesimClass.new()
+    self.parser = parser
 
     return setmetatable(self,interpreter)
 end
