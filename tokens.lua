@@ -7,4 +7,5 @@ return {
     ["]"] = "END",
     [","] = "GETCHAR",
     ["."] = "PUTCHAR",
+    ["!"] = "INPUT",
 }

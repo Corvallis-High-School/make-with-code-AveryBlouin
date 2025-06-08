@@ -1,3 +1,5 @@
+local TokenList = require("tokens")
+
 local parser = {}
 parser.__index = parser
 
@@ -42,24 +44,29 @@ function parser:parseOperation()
         error("Unexpected end of loop.")
     elseif token == "<EOF>" then
         error("Unexpected end of file.")
+    else
+        token = {type = TokenList[token]}
     end
 
     return token
 end
 
 function parser:parse()
+    self.tokens = self.lexer.tokens
+    self.userinput = self.lexer.userinput
+    self.index = 1
+    table.insert(self.tokens,"<EOF>")
+
     local tokens = self:delimit("<EOF>",self.parseOperation)
-    return {
+    self.ast = {
         type = "BLOCK",
         body = tokens,
     }
 end
 
-function parser.new(tokens)
+function parser.new(lexer)
     local self = {}
-    self.tokens = tokens
-    self.index = 1
-    table.insert(tokens,"<EOF>")
+    self.lexer = lexer
 
     return setmetatable(self,parser)
 end
