@@ -27,5 +27,5 @@ local myinterpreter = ParserClass.new(myparser)
 myinterpreter:run() -- runs the program
 ```
 ### Console simulator and providing input
-Most BF interpreters allow you to provide input after the source code via an exclamation point. My interpreter supports this, so you could do ``!+[>,]<[.<] !input text `` and it'd output ``txet tupni``.
+Most BF interpreters allow you to provide input after the source code via an exclamation point. My interpreter supports this, so you could do ``+[>,]<[.<] !input text `` and it'd output ``txet tupni``.
 However, if you want the user to be able to provide input while the game is running, don't use the exclamation mark, and my console mode simulator will be used. Name is self explanatory, it tries to simulator being in console mode so the user can provide input.
