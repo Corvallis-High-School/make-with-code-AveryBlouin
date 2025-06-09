@@ -43,16 +43,32 @@ function interpreter:interpretNode(node)
 end
 
 function interpreter:run()
-    self.position = 1
-    self.membuff = setmetatable({},{__index = function() return 0 end})
+    assert(self.parser,"Must provide a parser to the interpreter")
+    assert(self.parser.ast,"Parser must have parsed something before it can be interpretered.")
 
     self.ast = self.parser.ast
-    if #self.parser.userinput > 0 then
-        self.parser.userinput = self.parser.userinput.."\0"
+    self.userinput = self.parser.userinput
+    if #self.userinput > 0 and string.sub(self.userinput, #self.userinput) ~= "\0" then
+        self.userinput = self.userinput.."\0"
     end
-    self.consolesim = ConsolesimClass.new(self.parser.userinput)
+
+    if not self.initialized then
+        self:_initialize()
+    end
 
     return self:interpretNode(self.ast)
+end
+
+function interpreter:_initialize()
+    self.position = 1
+    self.membuff = setmetatable({},{__index = function() return 0 end})
+    self.consolesim = ConsolesimClass.new(self.userinput)
+    
+    self.initialized = true
+end
+
+function interpreter:setParser(parser)
+    self.parser = parser
 end
 
 function interpreter.new(parser)

@@ -52,6 +52,9 @@ function parser:parseOperation()
 end
 
 function parser:parse()
+    assert(self.lexer,"Must provide a lexer to the parser.")
+    assert(self.lexer.tokens,"Lexer must have tokenized the code before the parser can parse it.")
+
     self.tokens = self.lexer.tokens
     self.userinput = self.lexer.userinput
     self.index = 1
@@ -62,6 +65,10 @@ function parser:parse()
         type = "BLOCK",
         body = tokens,
     }
+end
+
+function parser:setLexer(lexer)
+    self.lexer = lexer
 end
 
 function parser.new(lexer)
