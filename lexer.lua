@@ -4,6 +4,8 @@ local lexer = {}
 lexer.__index = lexer
 
 function lexer:lex()
+    assert(self.input,"Must provide an input to the lexer.")
+
     local userinput = ""
     local tokens = {}
     for i = 1, #self.input do
@@ -19,6 +21,10 @@ function lexer:lex()
     end
     self.tokens = tokens
     self.userinput = userinput
+end
+
+function lexer:setInput(input)
+    self.input = input
 end
 
 function lexer.new(input)
