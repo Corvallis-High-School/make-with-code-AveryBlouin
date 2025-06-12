@@ -16,9 +16,15 @@ local interpreters = {
     end,
     RIGHT = function(self,node)
         self.position = self.position + 1
+        if self.position > self.highestpos then
+            self.highestpos = self.position
+        end
     end,
     LEFT = function(self,node)
         self.position = self.position - 1
+        if self.position < self.lowestpos then
+            self.lowestpos = self.position
+        end
     end,
     INCREASE = function(self,node)
         self.membuff[self.position] = self.membuff[self.position] + 1
@@ -53,16 +59,26 @@ function interpreter:run()
     end
 
     if not self.initialized then
-        self:_initialize()
+        self:initialize()
     end
 
+    self.consolesim:addUserInput(self.userinput)
     return self:interpretNode(self.ast)
 end
 
-function interpreter:_initialize()
-    self.position = 1
+function interpreter:resetMemory()
     self.membuff = setmetatable({},{__index = function() return 0 end})
-    self.consolesim = ConsolesimClass.new(self.userinput)
+    self.highestpos = 1
+    self.lowestpos = 1
+
+    self.position = 1
+
+    if self.consolesim then self.consolesim.buffer = {} end
+end
+
+function interpreter:initialize()
+    self:resetMemory()
+    self.consolesim = ConsolesimClass.new()
     
     self.initialized = true
 end
