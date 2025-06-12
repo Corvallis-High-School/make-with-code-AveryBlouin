@@ -4,7 +4,17 @@ This is a simple interpreter for an esoteric language abbreviated BF. I can't wr
 The grammar of this language has only eight tokens: +-><[],.
 Anything you can write in another language can be written in BF. The test code for this project features a BF interpreter written inside of itself.
 
-## Usage
+## REPL
+I made a Read Eval Print Loop that allows you to repeatedly run BF code from the command line. Memory is preserved. Commands:
+<br>
+``dbg``: prints the memory
+<br>
+``clrmem``: clears the memory
+<br>
+``cls``: clears the screen
+
+
+## API Usage
 This interpreter is broken into three separate classes: the lexer, parser, and interpreter. I know this is completely pointless because BF is such a simple language that it can be implemented in x86 in 69 bytes, but I just felt like writing a proper recursive descent parser the way you'd see it in a normal language.
 Anyways, the lexer class takes the program you're trying to run in text form, and converts it to tokens. The parser takes a lexer that's already tokenized some code and parses it into an abstract syntax tree. Then, the interpreter takes a parser as it's input and can run its code.
 Specifically:
