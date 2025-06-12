@@ -43,6 +43,11 @@ function console:addUserInput(input)
     end
 end
 
+function console:resetText(i)
+    self.text = "Console mode simulator\nReturn must be pressed after typing a character (can't do anything about that),\nleaving empty will result in a null character.\nInputting extra characters will add them to a buffer.\n\n".. (i or "")
+    self:render()
+end
+
 function console.new(input)
     input = input or ""
     local self = setmetatable({},console)

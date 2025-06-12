@@ -72,6 +72,8 @@ function interpreter:resetMemory()
     self.lowestpos = 1
 
     self.position = 1
+
+    if self.consolesim then self.consolesim.buffer = {} end
 end
 
 function interpreter:initialize()

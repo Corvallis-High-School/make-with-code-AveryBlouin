@@ -22,6 +22,8 @@ while true do
     elseif inp == "clrmem" then
         interpreter:resetMemory()
         print("Memory cleared.")
+    elseif inp == "cls" then
+        interpreter.consolesim:resetText()
     else
         lexer:setInput(inp)
         if interpreter.consolesim then
